@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snapchat Settings</title>
+  <style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  color: #111;
+}
+
+.top-bar {
+  height: 64px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 28px;
+  border-bottom: 1px solid #eeeeee;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  background-color: #fffc00;
+  border-radius: 8px;
+  color: #111;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.search-box {
+  width: 180px;
+  border: none;
+  outline: none;
+  background-color: #f0f1f2;
+  border-radius: 24px;
+  padding: 12px 18px;
+}
+
+.nav-links {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  font-size: 14px;
+  color: #333;
+}
+
+.download-btn {
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  padding: 10px 22px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.settings-page {
+  min-height: calc(100vh - 64px);
+  padding: 16px;
+}
+
+.settings-card {
+  width: 420px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.08);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.snapcode {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background-color: #fffc00;
+}
+
+.snapcode::before {
+  content: "\1F47B";
+  font-size: 34px;
+  line-height: 1;
+}
+
+.profile-name {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.username {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.username {
+  display: none;
+}
+
+.chat-box {
+  background: linear-gradient(90deg, #050505, #6b6825);
+  border-radius: 12px;
+  padding: 32px 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.chat-box p {
+  margin: 0 0 16px;
+  font-weight: 700;
+}
+
+.chat-button {
+  border: none;
+  background-color: #1da1f2;
+  color: white;
+  padding: 12px 70px;
+  border-radius: 24px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.chat-button:hover {
+  background-color: #0b8fe0;
+}
+
+.settings-list {
+  background-color: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+
+.settings-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border: none;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 14px 12px;
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.settings-row:last-child {
+  border-bottom: none;
+}
+
+.settings-row:hover {
+  background-color: #f7f7f7;
+}
+
+.danger {
+  color: #d93025;
+}
+
+.arrow {
+  color: #b8b8b8;
+  font-size: 24px;
+}
+
+.message-box {
+  background-color: #fffbe6;
+  border: 1px solid #ffec80;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 14px;
+}
+
+.login-page {
+  min-height: calc(100vh - 64px);
+  padding: 44px 5vw;
+  background-color: white;
+}
+
+.login-panel {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(300px, 1.15fr) minmax(260px, 0.85fr) minmax(260px, 0.85fr);
+  gap: 28px;
+  align-items: stretch;
+}
+
+.login-copy {
+  padding: 18px 0;
+}
+
+.login-copy h1 {
+  margin: 0 0 28px;
+  font-size: clamp(38px, 5vw, 56px);
+  line-height: 1;
+}
+
+.login-copy p {
+  max-width: 590px;
+  margin: 0 0 32px;
+  color: #444;
+  font-size: 22px;
+  line-height: 1.45;
+}
+
+.login-form {
+  max-width: 600px;
+  display: grid;
+  gap: 16px;
+}
+
+.login-form label {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.login-form input {
+  width: 100%;
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+  padding: 18px;
+  font-size: 18px;
+}
+
+.primary-login-btn {
+  width: 100%;
+  border: none;
+  border-radius: 28px;
+  padding: 18px 24px;
+  background-color: #0fadff;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.primary-login-btn:hover {
+  background-color: #039ce8;
+}
+
+.login-message {
+  margin-top: 24px;
+  color: #555;
+  font-size: 16px;
+}
+
+.promo-tile {
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 28px;
+  padding: 42px 36px 28px;
+  overflow: hidden;
+  color: white;
+}
+
+.promo-tile h2 {
+  margin: 0;
+  font-size: clamp(34px, 4vw, 48px);
+  line-height: 1.16;
+}
+
+.promo-tile button {
+  align-self: center;
+  border: none;
+  border-radius: 28px;
+  padding: 16px 40px;
+  background-color: rgba(17, 17, 17, 0.72);
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.friends-tile {
+  background:
+    linear-gradient(rgba(20, 20, 20, 0.15), rgba(20, 20, 20, 0.55)),
+    linear-gradient(135deg, #8e735f, #d8b695 48%, #2e3340);
+}
+
+.lenses-tile {
+  background:
+    radial-gradient(circle at 45% 55%, #191028 0 20%, transparent 21%),
+    radial-gradient(circle at 20% 70%, rgba(255, 0, 196, 0.55), transparent 28%),
+    linear-gradient(135deg, #2f075f 0%, #e013bc 48%, #170825 100%);
+}
+
+@media (max-width: 1000px) {
+  .login-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .promo-tile {
+    min-height: 340px;
+  }
+}
+
+@media (max-width: 700px) {
+  .nav-links {
+    display: none;
+  }
+
+  .top-bar {
+    gap: 12px;
+    padding: 0 14px;
+  }
+
+  .search-box {
+    flex: 1;
+    width: auto;
+  }
+
+  .settings-card {
+    width: 100%;
+  }
+
+  .login-page {
+    padding: 28px 16px;
+  }
+
+  .login-copy h1 {
+    font-size: 40px;
+  }
+
+  .login-copy p {
+    font-size: 18px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <header class="top-bar">
+    <a class="logo" href="settings.html" aria-label="Snapchat home">&#128123;</a>
+    <input class="search-box" type="text" placeholder="Search">
+    <nav class="nav-links">
+      <span>Stories</span>
+      <span>Spotlight</span>
+      <span>Chat</span>
+      <span>Lenses</span>
+      <span>Snapchat+</span>
+    </nav>
+    <button class="download-btn" type="button">Download</button>
+  </header>
+
+  <main class="settings-page">
+    <section class="settings-card">
+      <div class="profile-header">
+        <div class="snapcode" aria-hidden="true"></div>
+        <div>
+          <h2 class="profile-name">user</h2>
+          <p class="username">user</p>
+        </div>
+      </div>
+
+      <div class="chat-box">
+        <p>Chat, Snap and video call your friends:</p>
+        <button class="chat-button" type="button">Chat now</button>
+      </div>
+
+      <div class="settings-list">
+        <button class="settings-row" type="button">My Data <span class="arrow">&rsaquo;</span></button>
+        <button class="settings-row" type="button">My Snapcode <span class="arrow">&rsaquo;</span></button>
+        <button class="settings-row" type="button">Snapchat+ <span class="arrow">&rsaquo;</span></button>
+        <button class="settings-row" type="button">Content Visibility on Web <span class="arrow">&rsaquo;</span></button>
+        <button class="settings-row" type="button">Contact Management <span class="arrow">&rsaquo;</span></button>
+        <button class="settings-row" type="button">My Reports <span class="arrow">&rsaquo;</span></button>
+        <button class="settings-row" type="button">Ads Manager <span class="arrow">&rsaquo;</span></button>
+        <button class="settings-row" type="button">Manage Apps <span class="arrow">&rsaquo;</span></button>
+        <button class="settings-row" type="button">Session Management <span class="arrow">&rsaquo;</span></button>
+        <button class="settings-row" type="button">Change my password <span class="arrow">&rsaquo;</span></button>
+      </div>
+
+      <div class="settings-list">
+        <button class="settings-row danger" type="button">Delete my account <span class="arrow">&rsaquo;</span></button>
+        <button class="settings-row" type="button">Logout <span class="arrow">&rarr;</span></button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
