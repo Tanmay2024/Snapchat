@@ -160,6 +160,32 @@ body{
     border:none;
     height:100vh;
 }
+.profile{
+    position:relative;
+}
+
+.settings-icon{
+    position:absolute;
+    bottom:0;
+    right:-5px;
+
+    width:20px;
+    height:20px;
+
+    border-radius:50%;
+
+    background:#444;
+
+    color:white;
+
+    font-size:12px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-decoration:none;
+}
 
 </style>
 </head>
@@ -172,9 +198,13 @@ body{
 
         <div class="header">
 
-            <div class="profile">
-                <img src="user.png">
-            </div>
+           <div class="profile">
+    <img src="user.png">
+
+    <a href="settings.html" class="settings-icon">
+        ⚙
+    </a>
+</div>
 
             <div class="snap-logo">👻</div>
 
